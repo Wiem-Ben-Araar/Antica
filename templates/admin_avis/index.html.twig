@@ -3,17 +3,17 @@
 {% block title %}Avis index{% endblock %}
 
 {% block body %}
-    <h1>Avis index</h1>
+    <h1 style="text-align:center; color:#933939;">Avis index</h1>
 
-    <table class="table">
+    <table class="table" style="margin: 0 auto;">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Commentaire</th>
-                <th>Note</th>
-                <th>CreatedAt</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Commentaire</th>
+            <th>Note</th>
+            <th>CreatedAt</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for avi in avis %}
@@ -23,17 +23,17 @@
                 <td>{{ avi.note }}</td>
                 <td>{{ avi.createdAt ? avi.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_admin_avis_show', {'id': avi.id}) }}">show</a>
-                    <a href="{{ path('app_admin_avis_edit', {'id': avi.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_avis_show', {'id': avi.id}) }}" style="color:#933939;">show</a>
+                    <a href="{{ path('app_admin_avis_edit', {'id': avi.id}) }}" style="color:#933939;">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5" style="text-align:center;">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_avis_new') }}">Create new</a>
+    <a href="{{ path('app_admin_avis_new') }}" style="display:block; text-align:center; color:#933939;">Create new</a>
 {% endblock %}

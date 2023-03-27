@@ -3,9 +3,16 @@
 {% block title %}New Avis{% endblock %}
 
 {% block body %}
-    <h1>Create new Avis</h1>
-
-    {{ include('avis/_form.html.twig') }}
-
+    <div class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+        <div>
+            <h1 class="text-center">Create new Avis</h1>
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle"></i> {{ message }}
+                </div>
+            {% endfor %}
+            {{ include('avis/_form.html.twig') }}
+        </div>
+    </div>
 
 {% endblock %}

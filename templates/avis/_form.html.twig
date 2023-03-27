@@ -1,4 +1,9 @@
-{{ form_start(form) }}
+<div>
+    {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+    <button class="btn btn-primary d-block mx-auto my-3" style="background-color: #933939;">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+</div>
+
+
+
