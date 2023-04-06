@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -11,13 +12,56 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
+
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
+            ->add('nom', null, [
+                'attr' => ['autocomplete' => 'new-nom'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner votre nom!',
+                    ]),
+                ],
+            ])
+
+            ->add('prenom', null, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner votre prenom!',
+                    ]),
+                ],
+            ])
+            ->add('email', null, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Email cannot be empty',
+                    ]),
+                    new Regex([
+                        'pattern' => '/@/', // expression régulière à vérifier
+                        'message' => 'Email address invalid!',
+                    ]),
+                ],
+            ])
+
+            ->add('telephone', null, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner votre telephone!',
+                    ]),
+                ],
+            ])
+            ->add('adresse', null, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner votre adresse!',
+                    ]),
+                ],
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -43,6 +87,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+
         ;
     }
 
