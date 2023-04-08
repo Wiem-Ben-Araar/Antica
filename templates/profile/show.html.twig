@@ -2,39 +2,59 @@
 
 {% block title %}User{% endblock %}
 
+{% block stylesheets %}
+    <style>
+        .table-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .table {
+            margin-bottom: 2rem;
+        }
+
+        a {
+            color: #6e2424;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-<h1>Votre Profile</h1>
-<table class="table">
-    <tbody>
+    <div class="table-container">
+        <div>
+            <h1>Votre Profile</h1>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ user.email }}</td>
+                </tr>
 
-    <tr>
-        <th>Email</th>
-        <td>{{ user.email }}</td>
-    </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ user.nom }}</td>
+                </tr>
 
-    <tr>
-        <th>Nom</th>
-        <td>{{ user.nom }}</td>
-    </tr>
+                <tr>
+                    <th>Prénom</th>
+                    <td>{{ user.prenom }}</td>
+                </tr>
 
-    <tr>
-        <th>Prénom</th>
-        <td>{{ user.prenom }}</td>
-    </tr>
+                <tr>
+                    <th>Adresse</th>
+                    <td>{{ user.adresse }}</td>
+                </tr>
 
-    <tr>
-        <th>Adresse</th>
-        <td>{{ user.adresse }}</td>
-    </tr>
+                <tr>
+                    <th>Téléphone</th>
+                    <td>{{ user.telephone }}</td>
+                </tr>
+                </tbody>
+            </table>
 
-    <tr>
-        <th>Téléphone</th>
-        <td>{{ user.telephone }}</td>
-    </tr>
-
-
-    </tbody>
-</table>
-
-<a href="{{ path('app_profile_edit') }}">edit</a>
+            <a href="{{ path('app_profile_edit') }}" style="color: #6e2424">Edit</a>
+        </div>
+    </div>
 {% endblock %}
