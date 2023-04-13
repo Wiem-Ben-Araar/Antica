@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="Anil z" name="author">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Shopwise is Powerful features and You Can Use The Perfect Build this Template For Any eCommerce Website. The template is built for sell Fashion Products, Shoes, Bags, Cosmetics, Clothes, Sunglasses, Furniture, Kids Products, Electronics, Stationery Products and Sporting Goods.">
+    <meta name="keywords" content="ecommerce, electronics store, Fashion store, furniture store,  bootstrap 4, clean, minimal, modern, online store, responsive, retail, shopping, ecommerce store">
+
+    <!-- SITE TITLE -->
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Favicon Icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="../assets2/images/logo.png">
+    <!-- Animation CSS -->
+    <link rel="stylesheet" href="../assets2/css/animate.css">
+    <!-- Latest Bootstrap min CSS -->
+    <link rel="stylesheet" href="../assets2/bootstrap/css/bootstrap.min.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet" href="../assets2/css/all.min.css">
+    <link rel="stylesheet" href="../assets2/css/ionicons.min.css">
+    <link rel="stylesheet" href="../assets2/css/themify-icons.css">
+    <link rel="stylesheet" href="../assets2/css/linearicons.css">
+    <link rel="stylesheet" href="../assets2/css/flaticon.css">
+    <link rel="stylesheet" href="../assets2/css/simple-line-icons.css">
+    <!--- owl carousel CSS-->
+    <link rel="stylesheet" href="../assets2/owlcarousel/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets2/owlcarousel/css/owl.theme.css">
+    <link rel="stylesheet" href="../assets2/owlcarousel/css/owl.theme.default.min.css">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" href="../assets2/css/magnific-popup.css">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="../assets2/css/slick.css">
+    <link rel="stylesheet" href="../assets2/css/slick-theme.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="../assets2/css/style.css">
+    <link rel="stylesheet" href="../assets2/css/responsive.css">
+
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div class="preloader">
+    <div class="lds-ellipsis">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+<!-- END LOADER -->
+
+<!-- START HEADER -->
+<header class="header_wrap fixed-top header_with_topbar">
+    <div class="top-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center justify-content-center justify-content-md-start">
+
+
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-center text-md-end">
+                        <ul class="header_list">
+
+                            <li><a href="{{ path('app_login') }}"><i class="ti-user"></i><span>Login</span></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom_header dark_skin main_menu_uppercase">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Antika</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_login') }}">Identification</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_avis_new') }}">Avis</a>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
+                            </li>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_profile_show') }}">Profile</a>
+                            </li>
+
+                            <li class="dropdown cart_dropdown">
+
+                            <li><a class="nav-link cart_trigger" href="{{ path('app_panier_index') }}"><i class="linearicons-cart"></i><span class="cart_count"></span></a></li>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<!-- END HEADER -->
+
+<!-- START SECTION BANNER -->
+<div class="banner_section slide_medium shop_banner_slider staggered-animation-wrap">
+    <div id="carouselExampleControls" class="carousel slide carousel-fade light_arrow" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active background_bg" data-img-src="../assets2/images/Antika.jpg">
+                <div class="banner_slide_content">
+                    <div class="container"><!-- START CONTAINER -->
+                        <div class="row">
+                            <div class="col-lg-7 col-9">
+                                <div class="banner_content overflow-hidden">
+                                    <h5 class="mb-3 staggered-animation font-weight-light" data-animation="slideInLeft" data-animation-delay="0.5s" style="color: #6e2424">Get up to 20% off on your 10th order!!</h5>
+                                    <h2 class="staggered-animation" data-animation="slideInLeft" data-animation-delay="1s" style="color: #6e2424">Artworks Collection</h2>
+                                    <a class="btn btn-fill-out rounded-0 staggered-animation text-uppercase" href="shop-left-sidebar.html" data-animation="slideInLeft" data-animation-delay="1.5s" style="background-color: #6e2424; color: #fff">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- END CONTAINER-->
+                </div>
+            </div>
+            <div class="carousel-item background_bg" data-img-src="../assets2/images/Antika.jpg">
+                <div class="banner_slide_content">
+                    <div class="container"><!-- START CONTAINER -->
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="banner_content overflow-hidden">
+                                    <h5 class="mb-3 staggered-animation font-weight-light" data-animation="slideInLeft" data-animation-delay="0.5s" style="color: #6e2424">20% off in all art pieces</h5>
+                                    <h2 class="staggered-animation" data-animation="slideInLeft" data-animation-delay="1s" style="color: #6e2424">ilimited Time Offer</h2>
+                                    <a class="btn btn-fill-out rounded-0 staggered-animation text-uppercase" href="shop-left-sidebar.html" data-animation="slideInLeft" data-animation-delay="1.5s" style="background-color: #6e2424; color: #fff">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- END CONTAINER-->
+
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev"><i class="ion-chevron-left"></i></a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next"><i class="ion-chevron-right"></i></a>
+    </div>
+</div>
+<!-- END SECTION BANNER -->
+
+{% block content %}{% endblock %}
+
+<!-- START FOOTER -->
+<footer class="footer_dark">
+    <div class="footer_top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12"> <!-- Modification de la classe de la colonne -->
+                    <div class="widget">
+                        <h4 class="widget_title">À propos de nous</h4>
+                        <p>Nous sommes une boutique en ligne spécialisée dans la vente d'œuvres d'art, basée en Tunisie. Nous proposons une large sélection d'œuvres d'artistes locaux et internationaux, dans différents styles et formats.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="widget">
+                        <h4 class="widget_title">Contactez-nous</h4>
+                        <ul class="contact_info">
+                            <li>
+                                <i class="ti-location-pin"></i>
+                                <span>Adresse :</span>
+                                <p>28 Rue des Arts, Tunis</p>
+                            </li>
+                            <li>
+                                <i class="ti-email"></i>
+                                <span>Email :</span>
+                                <a href="mailto:info@antika.tn">info@antika.tn</a>
+                            </li>
+                            <li>
+                                <i class="ti-mobile"></i>
+                                <span>Téléphone :</span>
+                                <a href="tel:+21612345678">+216 90180310</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom_footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>© 2023 Antika. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6">
+                    <ul class="footer_link">
+                        <li><a href="#">Termes et conditions</a></li>
+                        <li><a href="#">Politique de confidentialité</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- END FOOTER -->
+
+<a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>
+
+<!-- Latest jQuery -->
+<script src="../assets2/js/jquery-3.6.0.min.js"></script>
+<!-- popper min js -->
+<script src="../assets2/js/popper.min.js"></script>
+<!-- Latest compiled and minified Bootstrap -->
+<script src="../assets2/bootstrap/js/bootstrap.min.js"></script>
+<!-- owl-carousel min js  -->
+<script src="../assets2/owlcarousel/js/owl.carousel.min.js"></script>
+<!-- magnific-popup min js  -->
+<script src="../assets2/js/magnific-popup.min.js"></script>
+<!-- waypoints min js  -->
+<script src="../assets2/js/waypoints.min.js"></script>
+<!-- parallax js  -->
+<script src="../assets2/js/parallax.js"></script>
+<!-- countdown js  -->
+<script src="../assets2/js/jquery.countdown.min.js"></script>
+<!-- imagesloaded js -->
+<script src="../assets2/js/imagesloaded.pkgd.min.js"></script>
+<!-- isotope min js -->
+<script src="../assets2/js/isotope.min.js"></script>
+<!-- jquery.dd.min js -->
+<script src="../assets2/js/jquery.dd.min.js"></script>
+<!-- slick js -->
+<script src="../assets2/js/slick.min.js"></script>
+<!-- elevatezoom js -->
+<script src="../assets2/js/jquery.elevatezoom.js"></script>
+<!-- scripts js -->
+<script src="../assets2/js/scripts.js"></script>
+
+</body>
+</html>
