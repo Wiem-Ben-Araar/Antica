@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .container {
+            margin: auto; /* pour centrer horizontalement */
+            width: 50%;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 style="text-align: center;">Editer votre profile</h1>
+
+        {{ include('profile/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
+{% endblock %}
+
+
+
