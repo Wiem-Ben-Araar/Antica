@@ -16,3 +16,4 @@ return [
     SymfonyCasts\Bundle\ResetPassword\SymfonyCastsResetPasswordBundle::class => ['all' => true],
     FOS\RestBundle\FOSRestBundle::class => ['all' => true],
 ];
+
