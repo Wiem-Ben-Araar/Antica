@@ -1,0 +1,41 @@
+{% extends 'baseadmin.html.twig' %}
+
+{% block title %}Produits{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div>
+    <h1>Produits</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ produit.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ produit.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ produit.prix }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>
+                    <img src="{{ asset('/uploads/images/'~produit.image) }}">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_produits_index') }}">back to list</a>
+
+    <a href="{{ path('admin_produits_edit', {'id': produit.id}) }}">edit</a>
+
+    {{ include('produitsAdmin/_deleteadmin_form.html.twig') }}
+    </div>
+</div>
+{% endblock %}
+

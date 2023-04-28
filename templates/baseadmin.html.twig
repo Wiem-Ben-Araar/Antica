@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zxx" class="js">
+
+<head>
+
+    <base href="../">
+    <meta charset="utf-8">
+    <meta name="author" content="Softnio">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" href="../../images/logoAntika.png">
+    <!-- Page Title  -->
+    <title>{% block title %}{% endblock %}</title>
+    <!-- StyleSheets  -->
+    <link rel="stylesheet" href="../../assets/css/dashlite.css?ver=3.1.3">
+    <link id="skin-default" rel="stylesheet" href="../../assets/css/theme.css?ver=3.1.3">
+</head>
+
+<body class="nk-body bg-lighter npc-general has-sidebar ">
+<div class="nk-app-root">
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- sidebar @s -->
+        <div class="nk-sidebar nk-sidebar-fixed is-light " data-content="sidebarMenu">
+            <div class="nk-sidebar-element nk-sidebar-head">
+
+                <div class="nk-sidebar-brand">
+                    <a href="{{ path('app_home') }}" class="logo-link nk-sidebar-logo">
+                        <img class="logo-light logo-img" src="../../images/logoAntika.png" srcset="../../images/logoAntika.png 2x" alt="logo">
+                        <img class="logo-dark logo-img" src="../../images/logoAntika.png" srcset="../../images/logoAntika.png 2x" alt="logo-dark">
+                    </a>
+                </div>
+            </div><!-- .nk-sidebar-element -->
+            <div class="nk-sidebar-element nk-sidebar-body">
+                <div class="nk-sidebar-content">
+                    <div class="nk-sidebar-menu" data-simplebar>
+                        <ul class="nk-menu">
+                            <li class="nk-menu-heading">
+                                <h6 class="overline-title text-primary-alt">Menu</h6>
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item">
+                                <a href="{{ path('admin_produits_index') }}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
+                                    <span class="nk-menu-text">Produits</span>
+                                </a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="{{ path('app_reclamation_index_front') }}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
+                                    <span class="nk-menu-text">Reclamations</span>
+                                </a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="{{ path('admin_panier_index') }}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
+                                    <span class="nk-menu-text">Panier</span>
+                                </a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="{{ path('admin_livraison_index') }}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
+                                    <span class="nk-menu-text">Livraisons</span>
+                                </a>
+                            </li>
+                        </ul><!-- .nk-menu -->
+                    </div><!-- .nk-sidebar-menu -->
+                </div><!-- .nk-sidebar-content -->
+            </div><!-- .nk-sidebar-element -->
+        </div>
+        <!-- sidebar @e -->
+        <!-- wrap @s -->
+        <div class="nk-wrap ">
+            <!-- main header @s -->
+            <div class="nk-header nk-header-fixed is-light">
+                <div class="container-fluid">
+                    <div class="nk-header-wrap">
+
+                        <div class="nk-header-brand d-xl-none">
+
+
+                        </div><!-- .nk-header-news -->
+                        <div class="nk-header-tools">
+                            <ul class="nk-quick-nav">
+                                <li class="dropdown language-dropdown d-none d-sm-block me-n1">
+
+                                    <div class="quick-icon border border-light">
+
+                                    </div>
+                                    </a>
+
+                                </li><!-- .dropdown -->
+
+
+
+
+
+
+
+
+                                <div class="dropdown-menu dropdown-menu-md dropdown-menu-end dropdown-menu-s1">
+                                    <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
+
+                                        <div class="user-avatar">
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="dropdown-inner">
+                                        <ul class="link-list">
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                </li><!-- .dropdown -->
+                                <li class="dropdown notification-dropdown me-n1">
+
+
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end dropdown-menu-s1">
+                                        <div class="dropdown-head">
+                                            <span class="sub-title nk-dropdown-title">Notifications</span>
+                                            <a href="#">Mark All as Read</a>
+                                        </div>
+                                        <div class="dropdown-body">
+                                            <div class="nk-notification">
+                                                <div class="nk-notification-item dropdown-inner">
+
+
+                                                </div>
+                                                <div class="nk-notification-content">
+
+
+                                                </div>
+
+
+
+                                            </div><!-- .nk-notification -->
+                                        </div><!-- .nk-dropdown-body -->
+                                        <div class="dropdown-foot center">
+                                            <a href="#">View All</a>
+                                        </div>
+                                    </div>
+                                </li><!-- .dropdown -->
+                            </ul><!-- .nk-quick-nav -->
+                        </div><!-- .nk-header-tools -->
+                    </div><!-- .nk-header-wrap -->
+                </div><!-- .container-fliud -->
+            </div>
+            <!-- main header @e -->
+            <!-- content @s -->
+            <div style="padding: 80px 40px;">
+                {% block content %}{% endblock %}
+            </div>
+            <!-- content @e -->
+            <!-- footer @s -->
+            <div class="nk-footer">
+                <div class="container-fluid">
+                    <div class="nk-footer-wrap">
+                        <p>© 2023 Antika. Tous droits réservés.</p>
+                    </div>
+
+                    <!-- footer @e -->
+                </div>
+                <!-- wrap @e -->
+            </div>
+            <!-- main @e -->
+        </div>
+        <!-- app-root @e -->
+        <!-- select region modal -->
+    </div>
+</div>

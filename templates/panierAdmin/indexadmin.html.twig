@@ -1,0 +1,47 @@
+{% extends 'baseadmin.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block content %}
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <div>
+    <h1>Panier</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Prix</th>
+                <th>Quantite</th>
+                <th>Produit</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for panier in paniers %}
+            <tr>
+                <td>
+                    <a href="{{ path('admin_panier_show', {'id': panier.id}) }}" style="background-color: #d1a88e; color: #6e2424;">Voir Produit </a>
+                    <a href="{{ path('admin_panier_edit', {'id': panier.id}) }}"style="background-color: #d1a88e; color: #6e2424;">Modifier</a>
+                    <a href="{{ path('admin_panier_delete', {'id': panier.id}) }}"style="background-color: #d1a88e; color: #6e2424;">Supprimer</a>
+                </td>
+                <td>{{ panier.total }}</td>
+                <td>{{ panier.quantite }}</td>
+                <td>{{ panier.produit.nom }}</td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+    <h1>Total de panier : {{ total }} TND</h1>
+    <a href="{{ path('admin_panier_new') }}"style="background-color: #d1a88e; color: #6e2424;">Ajouter Produit</a>
+    <a href="{{ path('admin_livraison_new') }}"style="background-color: #d1a88e; color: #6e2424;">Commander</a>
+    </div>
+    </div>
+{% endblock %}

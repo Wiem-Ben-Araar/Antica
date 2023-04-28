@@ -1,0 +1,17 @@
+{% extends 'baseadmin.html.twig' %}
+
+{% block title %}Edit Panier{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div>
+    <h1>Produit</h1>
+
+    {{ include('panierAdmin/_formadmin.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('admin_panier_index') }}"style="background-color: #d1a88e; color: #6e2424;">retour à la liste</a>
+
+    {{ include('panierAdmin/_deleteadmin_form.html.twig') }}
+    </div>
+</div>
+        {% endblock %}

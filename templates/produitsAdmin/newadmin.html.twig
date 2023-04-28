@@ -1,0 +1,15 @@
+{% extends 'baseadmin.html.twig' %}
+
+{% block title %}New Produits{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div>
+    <h1>Create new Produits</h1>
+
+    {{ include('produitsAdmin/_formadmin.html.twig') }}
+
+    <a href="{{ path('admin_produits_index') }}">back to list</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Panier{% endblock %}
+
+{% block body %}
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <div>
+            <h1>Ajouter Produit</h1>
+
+            {{ include('panier/_form.html.twig') }}
+            <div id="product-price" style="margin-top: 20px; font-weight: bold;"></div>
+
+            <!-- Lien vers le panier -->
+
+            <a href="{{ path('app_panier_index', {'id': panier.id}) }}"style="background-color: #d1a88e; color: #6e2424;">Panier</a>
+        </div>
+    </div>
+
+    </body>
+
+    </div>
+    </div>
+{% endblock %}
+

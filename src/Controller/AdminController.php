@@ -13,7 +13,7 @@ class AdminController extends AbstractController
     {
         $users = $userRepository->findAll();
 
-        return $this->render('admin/index.html.twig', [
+        return $this->render('admin/indexadmin.html.twig', [
             'users' => $users,
         ]);
     }

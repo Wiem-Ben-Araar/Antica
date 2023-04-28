@@ -1,0 +1,43 @@
+{% extends 'baseadmin.html.twig' %}
+
+{% block title %}New Panier{% endblock %}
+
+{% block content %}
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <div>
+            <h1>Ajouter Produit</h1>
+
+            {{ include('panierAdmin/_formadmin.html.twig') }}
+            <div id="product-price" style="margin-top: 20px; font-weight: bold;"></div>
+
+            <!-- Lien vers le panier -->
+            <a href="<?php echo $panierRoute; ?>" style="background-color: #d1a88e; color: #6e2424;">Panier</a>
+        </div>
+    </div>
+
+    <!-- Script pour afficher le prix du produit sélectionné -->
+    <script>
+        document.getElementById('product_id').addEventListener('change', function() {
+            var productId = this.value;
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var price = JSON.parse(xhr.responseText).price;
+                        document.getElementById('product-price').innerText = 'Prix: ' + price + ' €';
+                    } else {
+                        console.error('Erreur lors de la récupération du prix du produit');
+                    }
+                }
+            };
+            xhr.open('POST', '{{ path('get_price') }}', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
+            xhr.send('product_id=' + productId);
+        });
+    </script>
+    </body>
+
+    </div>
+    </div>
+{% endblock %}
+
