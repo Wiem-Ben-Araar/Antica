@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	New Bet
+{% endblock %}
+
+{% block body %}
+	<div class="section">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="table-responsive shop_cart_table">
+						<table class="table">
+							<thead>
+							<tr>
+								<th class="product-thumbnail"> </th>
+								<th class="product-name">Product</th>
+								<th class="product-price">Starting Price</th>
+								<th class="product-quantity">Bet</th>
+								<th class="product-subtotal">Final Price</th>
+								<th class="product-remove">Remove</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+
+								<td class="product-thumbnail"><a href="#"><img src="assets/images/product_img1.jpg" alt="product1"></a></td>
+								<td class="product-name" data-title="Product"><a href="#">Blue Dress For Woman</a></td>
+								<td class="product-price" data-title="Price">{{ enchere.prix_initiale }}</td>
+								<td class="product-quantity" data-title="Quantity">
+									<div class="quantity">
+										<input type="button" value="-" class="minus" data-price="{{ enchere.prix_initiale }}" {% if enchere.prix_initiale == enchere.prix_finale %} disabled {% endif %}>
+										<input type="text" name="quantity" value="0" title="Qty" class="qty" size="4">
+										<input type="button" value="+" class="plus" data-price="{{ enchere.prix_initiale + 50 }}">
+									</div>
+								</td>
+
+								<td class="product-subtotal" data-title="Total">{{ enchere.prix_initiale }}</td>
+								<td class="product-remove" data-title="Remove"><a href="#"><i class="ti-close"></i></a></td>
+								{% for mise in mises%}
+									<td class="product-add-to-cart"><a href="{{ path('app_mise_show', {'id': mise.id}) }}" class="btn btn-fill-out"><i class="ti-money"></i> Place Bet </a></td>
+								{% endfor %}
+
+
+							</tr>
+
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="medium_divider"></div>
+					<div class="divider center_icon"><i class="ti-shopping-cart-full"></i></div>
+					<div class="medium_divider"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		var betQuantity = document.querySelector('input[name="quantity"]');
+		var betPrice = document.querySelectorAll('input[data-price]');
+		var finalPrice = document.querySelector('td.product-subtotal');
+		var startingPrice = Number('{{ enchere.prix_initiale }}');
+		var maxPrice = Number('{{ enchere.prix_finale }}');
+
+		function updatePrice() {
+			var totalBet = parseInt(betQuantity.value) + 50;
+			var newPrice = startingPrice + totalBet;
+			finalPrice.textContent = newPrice;
+			betPrice.forEach(function(price) {
+				price.setAttribute('data-price', newPrice + (parseInt(price.getAttribute('data-price')) - startingPrice));
+			});
+		}
+		betQuantity.addEventListener('change', updatePrice);
+		betQuantity.addEventListener('keyup', updatePrice);
+
+		betPrice.forEach(function(price) {
+			price.addEventListener('click', function() {
+				if (price.classList.contains('plus')) {
+					var newQuantity = parseInt(betQuantity.value) + 1;
+				} else {
+					betQuantity.value = quantity > 0 ? quantity - 1 : 0;
+
+				}
+				updatePrice();
+			});
+		});
+	</script>
+{% endblock %}

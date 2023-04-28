@@ -1,0 +1,29 @@
+{% form_theme form _self %}
+
+{% block _enchere_enchere_date_widget %}
+    {{ form_widget(form.date_creation, {'attr': {'class': 'form-control datetimepicker-input', 'data-target': '#datetimepicker1'}}) }}
+{% endblock %}
+
+{% block _enchere_enchere_date_widget %}
+    {{ form_widget(form.date_fermeture, {'attr': {'class': 'form-control datetimepicker-input', 'data-target': '#datetimepicker1'}}) }}
+{% endblock %}
+
+{% block _enchere_prix_row %}
+    <div class="form-group row">
+        {{ form_label(form.prix_initiale, 'PrixInitiale', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block _enchere__token_row %}{% endblock %}
+
+{% block _enchere_save_row %}
+    <div class="form-group row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+        </div>
+    </div>
+{% endblock %}

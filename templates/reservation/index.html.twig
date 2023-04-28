@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Event | Reservation {% endblock %}
+
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="text-center order_complete">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="heading_s1">
+                            <h3>Your reservation is booked!</h3>
+                        </div>
+                        <p>Thank you for your reservation! You will receive an email containing the reservation immediately.</p>
+                        <a href="{{ path('app_evenement_index') }}" class="btn btn-fill-out">Events list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

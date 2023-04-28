@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Antika | {{ evenement.nom }}
+{% endblock %}
+
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9">
+                    <div class="single_post">
+                        <div class="blog_post blog_style2">
+                            <div class="blog_img">
+                                    <img src="{{ asset('assets/images/{{entity.logo}}') }} " alt="{{ evenement.nom }}">
+                            </div>
+                        </div>
+                        <h2 class="blog_title">{{ evenement.nom }}</h2>
+                        <ul class="list_none blog_meta">
+                            <li><i class="ti-calendar"></i> {{ evenement.evenementDate | date('d/M, Y') }}</li>
+                            <li><i class="ti-user"></i> {{ evenement.capacite }}</li>
+                        </ul>
+                        <div class="blog_content">
+                            <td class="blog_text">
+                                <p> {{ evenement.description }} </p>
+                            </td>
+                            </div>
+                        </div>
+                        <div class="blog_content">
+                            <td class="product-add-to-cart"><a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}" class="btn btn-fill-out"><i class="ti-pencil"></i> Edit </a></td>
+                            {{ include('evenement/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

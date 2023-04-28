@@ -38,27 +38,6 @@
             "./migrations/.gitignore"
         ]
     },
-    "friendsofsymfony/rest-bundle": {
-        "version": "3.5",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "3.0",
-            "ref": "3762cc4e4f2d6faabeca5a151b41c8c791bd96e5"
-        },
-        "files": [
-            "./config/packages/fos_rest.yaml"
-        ]
-    },
-    "jms/serializer-bundle": {
-        "version": "5.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "4.0",
-            "ref": "cc04e10cf7171525b50c18b36004edf64cb478be"
-        }
-    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -110,7 +89,7 @@
         ]
     },
     "symfony/flex": {
-        "version": "2.2",
+        "version": "1.19",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -153,7 +132,7 @@
         ]
     },
     "symfony/maker-bundle": {
-        "version": "1.48",
+        "version": "1.43",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -300,31 +279,7 @@
             "./config/packages/messenger.yaml"
         ]
     },
-    "symfonycasts/reset-password-bundle": {
-        "version": "1.17",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "1.0",
-            "ref": "97c1627c0384534997ae1047b93be517ca16de43"
-        },
-        "files": [
-            "./config/packages/reset_password.yaml"
-        ]
-    },
-    "symfonycasts/verify-email-bundle": {
-        "version": "v1.13.0"
-    },
     "twig/extra-bundle": {
         "version": "v3.5.1"
-    },
-    "vich/uploader-bundle": {
-        "version": "2.1",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "1.13",
-            "ref": "1b3064c2f6b255c2bc2f56461aaeb76b11e07e36"
-        }
     }
 }

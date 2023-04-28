@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Antika | Enchère
+{% endblock %}
+
+{% block body %}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive wishlist_table">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="product-thumbnail">&nbsp;</th>
+                                <th class="product-name">Product</th>
+                                <th class="product-price">Starting Price</th>
+                                <th class="product-price">Final Price</th>
+                                <th class="product-stock-status">Winner</th>
+                                <th class="product-add-to-cart"></th>
+                                <th class="product-remove">Remove</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="product-thumbnail"><a href="#"><img src="assets/images/pot.jpg" alt="product1"></a></td>
+                                <td class="product-name" data-title="Product"><a href="#">Pot O' Gold</a></td>
+                                <td class="product-price" data-title="Starting Price">{{ enchere.PrixInitiale }}</td>
+                                <td class="product-price" data-title="Price">25 000 DT</td>
+                                <td class="product-stock-status" data-title="Stock Status"><span class="badge badge-success">Nada</span></td>
+                                <td class="product-add-to-cart"><a href="{{ path('app_enchere_edit', {'id': enchere.id}) }}" class="btn btn-fill-out"><i class="ti-pencil"></i> Edit </a></td>
+                                <td {{ path('app_enchere_delete', {'id': enchere.id}) }} ></td>
+                            </tr>
+                            <tr>
+                                <td class="product-thumbnail"><a href="#"><img src="assets/images/garwor.jpg" alt="product2"></a></td>
+                                <td class="product-name" data-title="Product"><a href="#">Garwor Sculpture</a></td>
+                                <td class="product-price" data-title="Starting Price" style="color:grey">In progress</td>
+                                <td class="product-price" data-title="Final Price" style="color:grey">In progress</td>
+                                <td class="product-stock-status" data-title="Stock Status"><span class="badge badge-success"></span></td>
+                                <td class="product-add-to-cart"><a href="#" class="btn btn-fill-out"><i class="ti-pencil"></i> Edit</a></td>
+                                <td class="product-remove" data-title="Remove"><a href="#"><i class="ti-close"></i></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

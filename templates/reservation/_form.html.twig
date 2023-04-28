@@ -1,0 +1,22 @@
+{% form_theme form _self %}
+
+
+{% block _evenement_nom_row %}
+    <div class="form-group row">
+        {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block _reservation__token_row %}{% endblock %}
+
+{% block _reservation_save_row %}
+    <div class="form-group row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+        </div>
+    </div>
+{% endblock %}
