@@ -10,6 +10,7 @@
                 <div class="col-lg-9">
                     <div class="row blog_thumbs">
                         {% for evenement in evenements%}
+
                             <div class="col-12">
                                 <div class="blog_post blog_style2">
                                     <div class="blog_img">
@@ -26,8 +27,8 @@
                                                 <li><i class="ti-user"></i> {{ evenement.capacite }} </li>
                                             </ul>
                                             <p>{{ evenement.description }} </p>
-                                            <a href="blog-single.html" class="btn btn-fill-line border-2 btn-xs rounded-0">Read More</a>
-                                            <a href="blog-single.html" class="btn btn-fill-line border-2 btn-xs rounded-0">Book Now</a>
+                                            <a href="{{ path('app_evenement_show', {'id': evenement.id}) }}" class="btn btn-fill-line border-2 btn-xs rounded-0">Read More</a>
+                                            <a href="{{ path('app_reservation_new') }}" class="btn btn-fill-line border-2 btn-xs rounded-0">Book Now</a>
                                         </div>
                                     </div>
                                 </div>

@@ -28,7 +28,7 @@ class ReservationController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_reservation_new", methods={"GET", "POST"})
+     * @Route("/new ", name="app_reservation_new", methods={"GET", "POST"})
      */
     public function new(Request $request, ReservationRepository $reservationRepository): Response
     {

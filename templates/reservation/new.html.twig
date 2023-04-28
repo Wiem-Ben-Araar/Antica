@@ -8,44 +8,43 @@
 	<div class="section">
 		<div class="container">
 			<div class="row">
-
-				 <div class="col-md-6">
+				<div class="col-md-6">
 					<td class="order_review">
 						<div class="heading_s1">
 							<h4>Your Orders</h4>
 						</div>
 						<div class="table-responsive order_table">
-
-							 <table class="table">
+							<table class="table">
 								<thead>
 								<tr>
 									<th>Reservation</th>
 									<th>Total</th>
 								</tr>
 								</thead>
+							{{ form_start(form) }}
 								<tbody>
-								<tr>
-									<td>{{ evenement.nom }} <span class="product-qty"></span></td>
-									<td>$90.00</td>
-								</tr>
+							<div class="form-group">
+								{{ form_label(form.evenement) }}
+								{{ form_widget(form.evenement, {'attr': {'class': 'form-control', 'placeholder': 'Event Name'}}) }}
+								{{ form_errors(form.evenement) }}
+							</div>
+							<div class="form-group row">
+								<td>x 1</td>
+							</div>
+							<div class="form-group row">
+								<td>50.00 Dt</td>
+							</div>
 								</tbody>
-								<tfoot>
-								<tr>
-									<th>SubTotal</th>
-									<td class="product-subtotal">$90.00</td>
-								</tr>
+							<div class="form-group">
+								<button type="submit" class="btn btn-fill-out btn-block" name="register">Book Reservation</button>
+							</div>
 
-
-								</tfoot>
-							 </table>
+							{{ form_end(form) }}
+							</table>
 						</div>
-
-						<td  {{include ('reservation/_form.html.twig') }}><a href="{{ path('app_reservation_index') }}" class="btn btn-fill-out btn-block">Place Reservation</a></td>
-
-					</div>
+					</td>
 				</div>
 			</div>
-
 		</div>
 	</div>
 {% endblock %}

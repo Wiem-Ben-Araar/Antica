@@ -20,9 +20,9 @@ class Reservation
 
     /**
      * @ORM\ManyToOne(targetEntity=Evenement::class, inversedBy="reservations")
+     * @ORM\JoinColumn(name="evenement_id", referencedColumnName="id")
      */
-    private $evenement;
-
+    public $evenement;
 
     public function getId(): ?int
     {
@@ -40,4 +40,5 @@ class Reservation
 
         return $this;
     }
+
 }

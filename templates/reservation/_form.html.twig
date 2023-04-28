@@ -1,12 +1,24 @@
 {% form_theme form _self %}
 
 
-{% block _evenement_nom_row %}
+{% block _reservation_evenement_row %}
     <div class="form-group row">
-        {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+        {{ form_label(form.evenement, 'Nom', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
         <div class="col-sm-10">
-            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(form.evenement, {'attr': {'class': 'form-control'}}) }}
         </div>
+    </div>
+{% endblock %}
+
+{% block _reservation_price_row %}
+    <div class="form-group row">
+        <td>x 1</td>
+    </div>
+{% endblock %}
+
+{% block _total_price_row %}
+    <div class="form-group row">
+        <td>50.00 Dt</td>
     </div>
 {% endblock %}
 

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Mise;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,10 +13,10 @@ class MiseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Enchere')
-            ->add('montant')
-            ->add('date_creation')
-        ;
+            ->add('enchere', EntityType::class, [
+                'class' => 'App\Entity\Enchere',
+                'choice_label' => 'prix_initiale'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

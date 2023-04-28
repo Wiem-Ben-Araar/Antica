@@ -25,7 +25,7 @@ class Evenement
      * @Assert\NotBlank(message="Le nom de l'événement est requis.")
      * @Assert\Length(max=255, maxMessage="Le nom de l'événement ne peut pas dépasser {{ limit }} caractères.")
      */
-    private $nom;
+    public $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -59,9 +59,15 @@ class Evenement
      */
     private $evenement;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="nom")
+     */
+    private $reservations;
+
     public function __construct()
     {
         $this->evenement = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -163,4 +169,46 @@ class Evenement
     {
         return (string) $this->id;
     }
+    public function getNameById($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $evenement = $entityManager->getRepository(Evenement::class)->findOneBy(['id' => $id]);
+
+        if (!$evenement) {
+            throw $this->createNotFoundException('L\'événement n\'existe pas.');
+        }
+
+        return $evenement->getNom();
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setNom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getNom() === $this) {
+                $reservation->setNom(null);
+            }
+        }
+
+        return $this;
+    }
 }
+

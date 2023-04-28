@@ -19,14 +19,25 @@
 								<th class="product-quantity">Bet</th>
 								<th class="product-subtotal">Final Price</th>
 								<th class="product-remove">Remove</th>
+								<th class="product-price"></th>
 							</tr>
 							</thead>
 							<tbody>
 							<tr>
+								{{ form_start(form) }}
+								<div class="form-group row">
+									<td></td>
+								</div>
+								<div class="form-group row">
+									<td>Pot O' Gold</td>
+								</div>
+								<td>
+									<div class="form-group">
 
-								<td class="product-thumbnail"><a href="#"><img src="assets/images/product_img1.jpg" alt="product1"></a></td>
-								<td class="product-name" data-title="Product"><a href="#">Blue Dress For Woman</a></td>
-								<td class="product-price" data-title="Price">{{ enchere.prix_initiale }}</td>
+										{{ form_widget(form.enchere, {'attr': {'class': 'form-control', 'placeholder': 'Event Name'}}) }}
+										{{ form_errors(form.enchere) }}
+									</div>
+								</td>
 								<td class="product-quantity" data-title="Quantity">
 									<div class="quantity">
 										<input type="button" value="-" class="minus" data-price="{{ enchere.prix_initiale }}" {% if enchere.prix_initiale == enchere.prix_finale %} disabled {% endif %}>
@@ -34,14 +45,14 @@
 										<input type="button" value="+" class="plus" data-price="{{ enchere.prix_initiale + 50 }}">
 									</div>
 								</td>
-
 								<td class="product-subtotal" data-title="Total">{{ enchere.prix_initiale }}</td>
 								<td class="product-remove" data-title="Remove"><a href="#"><i class="ti-close"></i></a></td>
-								{% for mise in mises%}
-									<td class="product-add-to-cart"><a href="{{ path('app_mise_show', {'id': mise.id}) }}" class="btn btn-fill-out"><i class="ti-money"></i> Place Bet </a></td>
-								{% endfor %}
-
-
+								<td>
+									<div class="form-group">
+										<button type="submit" class="btn btn-fill-out btn-block" name="register">Place Bet</button>
+									</div>
+								</td>
+								{{ form_end(form) }}
 							</tr>
 
 							</tbody>
@@ -50,44 +61,52 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-12">
-					<div class="medium_divider"></div>
-					<div class="divider center_icon"><i class="ti-shopping-cart-full"></i></div>
-					<div class="medium_divider"></div>
-				</div>
-			</div>
+
 		</div>
 	</div>
 
 	<script>
 		var betQuantity = document.querySelector('input[name="quantity"]');
-		var betPrice = document.querySelectorAll('input[data-price]');
+		var plusButton = document.querySelector('input.plus');
+		var minusButton = document.querySelector('input.minus');
 		var finalPrice = document.querySelector('td.product-subtotal');
 		var startingPrice = Number('{{ enchere.prix_initiale }}');
 		var maxPrice = Number('{{ enchere.prix_finale }}');
 
 		function updatePrice() {
-			var totalBet = parseInt(betQuantity.value) + 50;
+			var totalBet = parseInt(betQuantity.value) * 50;
 			var newPrice = startingPrice + totalBet;
 			finalPrice.textContent = newPrice;
-			betPrice.forEach(function(price) {
-				price.setAttribute('data-price', newPrice + (parseInt(price.getAttribute('data-price')) - startingPrice));
-			});
 		}
+
 		betQuantity.addEventListener('change', updatePrice);
 		betQuantity.addEventListener('keyup', updatePrice);
 
-		betPrice.forEach(function(price) {
-			price.addEventListener('click', function() {
-				if (price.classList.contains('plus')) {
-					var newQuantity = parseInt(betQuantity.value) + 1;
-				} else {
-					betQuantity.value = quantity > 0 ? quantity - 1 : 0;
-
-				}
+		plusButton.addEventListener('click', function() {
+			var newQuantity = parseInt(betQuantity.value) + 1;
+			if (newQuantity * 50 + startingPrice <= maxPrice) {
+				betQuantity.value = newQuantity;
 				updatePrice();
-			});
+			}
 		});
+
+		minusButton.addEventListener('click', function() {
+			var newQuantity = parseInt(betQuantity.value) - 1;
+			if (newQuantity >= 0) {
+				betQuantity.value = newQuantity;
+				updatePrice();
+			}
+		});
+
+		var placerMiseButton = document.createElement('button');
+		placerMiseButton.textContent = 'Placer mise';
+		placerMiseButton.classList.add('btn', 'btn-fill-out');
+		placerMiseButton.addEventListener('click', function() {
+			// Code to handle placing the bet
+		});
+
+		var productAddToCartCell = document.querySelector('.product-add-to-cart');
+		productAddToCartCell.appendChild(placerMiseButton);
 	</script>
+
 {% endblock %}

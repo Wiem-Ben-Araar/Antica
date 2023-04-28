@@ -28,7 +28,7 @@
                                             </ul>
                                             <p>{{ evenement.description }} </p>
                                             <a href="{{ path('app_evenement_show', {'id': evenement.id}) }}" class="btn btn-fill-line border-2 btn-xs rounded-0">Read More</a>
-                                            <a href="{{ path('app_reservation_new') }}" class="btn btn-fill-line border-2 btn-xs rounded-0">Book Now</a>
+                                            <a href="{{ path('app_reservation_new' , {'nom' : evenement.id}) }}" class="btn btn-fill-line border-2 btn-xs rounded-0">Book Now</a>
                                         </div>
                                     </div>
                                 </div>
@@ -58,55 +58,6 @@
                                     </button>
                                 </form>
                             </div>
-                        </div>
-                        <div class="widget">
-                            <h5 class="widget_title">Recent Events</h5>
-                            <ul class="widget_recent_post">
-                                <li>
-                                    <div class="post_footer">
-                                        <div class="post_img">
-                                            <a href="#"><img src="assets/images/letest_post1.jpg" alt="letest_post1"></a>
-                                        </div>
-                                        <div class="post_content">
-                                            <h6><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h6>
-                                            <p class="small m-0">April 14, 2018</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="post_footer">
-                                        <div class="post_img">
-                                            <a href="#"><img src="assets/images/letest_post2.jpg" alt="letest_post2"></a>
-                                        </div>
-                                        <div class="post_content">
-                                            <h6><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h6>
-                                            <p class="small m-0">April 14, 2018</p>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div class="post_footer">
-                                        <div class="post_img">
-                                            <a href="#"><img src="assets/images/letest_post3.jpg" alt="letest_post3"></a>
-                                        </div>
-                                        <div class="post_content">
-                                            <h6><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h6>
-                                            <p class="small m-0">April 14, 2018</p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="widget">
-                            <h5 class="widget_title">Archive</h5>
-                            <ul class="widget_archive">
-                                <li><a href="#"><span class="archive_year">June 2019</span><span class="archive_num">(12)</span></a></li>
-                                <li><a href="#"><span class="archive_year">May 2019</span><span class="archive_num">(5)</span></a></li>
-                                <li><a href="#"><span class="archive_year">March 2018</span><span class="archive_num">(6)</span></a></li>
-                                <li><a href="#"><span class="archive_year">January 2018</span><span class="archive_num">(7)</span></a></li>
-                                <li><a href="#"><span class="archive_year">April 2017</span><span class="archive_num">(10)</span></a></li>
-                            </ul>
                         </div>
                     </div>
                 </div>

@@ -20,10 +20,11 @@ class MiseController extends AbstractController
     /**
      * @Route("/list", name="app_mise_index", methods={"GET"})
      */
-    public function index(MiseRepository $miseRepository): Response
+    public function index(MiseRepository $miseRepository, EvenementRepository $evenementRepository): Response
     {
         return $this->render('mise/list.html.twig', [
             'mises' => $miseRepository->findAll(),
+            'evenements' => $evenementRepository->findAll()
         ]);
     }
 
