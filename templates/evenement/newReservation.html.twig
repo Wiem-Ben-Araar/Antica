@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Reservation Booking
+{% endblock %}
+
+{% block body %}
+	<div class="section">
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-12">
+					<div class="medium_divider"></div>
+					<div class="divider center_icon"><i class="linearicons-credit-card"></i></div>
+					<div class="medium_divider"></div>
+				</div>
+			</div>
+			<div class="row">
+
+				 <div class="col-md-6">
+					<div class="order_review">
+						<div class="heading_s1">
+							<h4>Your Orders</h4>
+						</div>
+						<div class="table-responsive order_table">
+							{% for evenement in evenements%}
+							 <table class="table">
+								<thead>
+								<tr>
+									<th>Reservation</th>
+									<th>Total</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr>
+									<td>{{ evenement.nom }}<span class="product-qty">x 2</span></td>
+									<td>$90.00</td>
+								</tr>
+								</tbody>
+								<tfoot>
+								<tr>
+									<th>SubTotal</th>
+									<td class="product-subtotal">$90.00</td>
+								</tr>
+
+
+								</tfoot>
+							 </table>
+							{% endfor %}
+						</div>
+
+						<a href="{{ path('app_mise_new', {'id': enchere.id}) }}" class="btn btn-fill-out btn-block">Place Reservation</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}

@@ -1,43 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Evenement index{% endblock %}
+{% block title %} Auction | Bet {% endblock %}
 
 {% block body %}
-    <h1>Evenement index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Lieu</th>
-                <th>Description</th>
-                <th>Capacite</th>
-                <th>Evenement_date</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for evenement in evenements %}
-            <tr>
-                <td>{{ evenement.id }}</td>
-                <td>{{ evenement.nom }}</td>
-                <td>{{ evenement.lieu }}</td>
-                <td>{{ evenement.description }}</td>
-                <td>{{ evenement.capacite }}</td>
-                <td>{{ evenement.evenementDate ? evenement.evenementDate|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_evenement_show', {'id': evenement.id}) }}">show</a>
-                    <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_evenement_new') }}">Create new</a>
+    <div class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="text-center order_complete">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="heading_s1">
+                            <h3>Your bet is placed!</h3>
+                        </div>
+                        <p>Thank you for betting! You will receive a notification in case of winning.</p>
+                        <a href="{{ path('app_mise_new') }}" class="btn btn-fill-out">Bets list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
