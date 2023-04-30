@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
 
-
+//
     #[Route('', name: 'app_profile_show', methods: ['GET'])]
     public function show(): Response
     {
