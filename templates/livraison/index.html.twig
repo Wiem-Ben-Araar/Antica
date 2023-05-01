@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livraison{% endblock %}
+
+{% block body %}
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+        <div>
+            <h1>Livraisons</h1>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>actions</th>
+                    <th>Adresse</th>
+                    <th>Date_livraison</th>
+                    <th>Statut</th>
+                    <th>Total</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for livraison in livraisons %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('app_livraison_show', {'id': livraison.id}) }}"style="background-color: #d1a88e; color: #6e2424;">Détails</a>
+                            <a href="{{ path('app_livraison_edit', {'id': livraison.id}) }}"style="background-color: #d1a88e; color: #6e2424;">Modifier</a>
+                            <a href="{{ path('facture_pdf', {'id': livraison.id}) }}" style="background-color: #d1a88e; color: #6e2424;">Imprimer</a>
+                            
+
+                        </td>
+                        <td>{{ livraison.adresse }}</td>
+                        <td>{{ livraison.dateLivraison ? livraison.dateLivraison|date('Y-m-d') : '' }}</td>
+                        <td>{{ livraison.statut }}</td>
+                        <td>{{ livraison.total }}</td>
+
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a href="{{ path('app_panier_index') }}"style="background-color: #d1a88e; color: #6e2424;">panier</a>
+        </div>
+    </div>
+{% endblock %}

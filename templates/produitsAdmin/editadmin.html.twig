@@ -1,0 +1,18 @@
+{% extends 'baseadmin.html.twig' %}
+
+{% block title %}Edit Produits{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div>
+    <h1>Edit Produits</h1>
+
+    {{ include('produitsAdmin/_formadmin.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin_produits_index') }}">back to list</a>
+
+    {{ include('produitsAdmin/_deleteadmin_form.html.twig') }}
+    </div>
+</div>
+{% endblock %}
+

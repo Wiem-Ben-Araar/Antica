@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Facture</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #d1a88e;
+        }
+        .header {
+            background-color: #6E2424FF;
+            color: white;
+            padding: 20px;
+        }
+        .header h1 {
+            background-color: #6E2424FF;
+            color: white;
+            margin: 0;
+        }
+        .header p {
+            background-color: #6E2424FF;
+            color: white;
+            margin: 5px 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #d1a88e;
+        }
+        .content table th, .content table td {
+            border: 1px solid #000000;
+            padding: 10px;
+
+        }
+        .content table th {
+            background-color: #6e2424;
+        }
+        .content table td {
+            text-align: center;
+        }
+        .footer {
+            background-color: #d1a88e;
+            padding: 10px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Facture ANTIKA</h1>
+    <p style="color:white;">Nom et prénom du client : {{ user.getNom() }} {{ user.getPrenom() }}</p>
+</div>
+<div class="content">
+    <table>
+        <thead>
+        <tr>
+            <th style="background-color:#6e2424;color:white;">Produit</th>
+            <th style="background-color:#6e2424;color:white;">Prix</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for panier in paniers %}
+            <tr>
+                <td>{{ panier.getProduit().getNom() }}</td>
+                <td>{{ panier.getProduit().getPrix() }} TND</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td>Total</td>
+            <td>{{ total }} TND</td>
+        </tr>
+        </tfoot>
+    </table>
+    <p>Adresse de livraison : {{ adresse }}</p>
+    <p>Date de livraison : {{ date_livraison|date('d/m/Y') }}</p>
+</div>
+<div class="footer">
+    Facture générée le {{ "now"|date('d/m/Y H:i') }}
+</div>
+</body>
+</html>

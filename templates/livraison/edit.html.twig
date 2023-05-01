@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Livraison{% endblock %}
+
+{% block body %}
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div>
+    <h1>Livraison</h1>
+
+    {{ include('livraison/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('app_livraison_index') }}"style="background-color: #d1a88e; color: #6e2424;">retour à liste</a>
+
+        {% if livraison.statut == 'En cours' %}
+
+            <a href="{{ path('app_livraison_cancel', {'id': livraison.id}) }}"style="background-color: #d1a88e; color: #6e2424;">Annuler</a>
+            </form>
+        {% endif %}
+
+    </div>
+</div>
+        {% endblock %}

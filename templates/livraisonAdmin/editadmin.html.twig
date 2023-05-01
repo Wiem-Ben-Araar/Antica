@@ -1,0 +1,24 @@
+{% extends 'baseadmin.html.twig' %}
+
+{% block title %}Edit Livraison{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div>
+    <h1>Livraison</h1>
+
+    {{ include('livraisonAdmin/_formadmin.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('admin_livraison_index') }}"style="background-color: #d1a88e; color: #6e2424;">retour à liste</a>
+
+        {% if livraison.statut == 'En cours' %}
+            <form action="{{ path('admin_livraison_delivered', {'id': livraison.id}) }}" method="POST">
+                <button type="submit" style="background-color: #d1a88e; color: #6e2424;">Confirmer la livraison</button>
+                {{ form_widget(confirmForm) }}
+            </form>
+        {% endif %}
+
+
+    </div>
+</div>
+        {% endblock %}
