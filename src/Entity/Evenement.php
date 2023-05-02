@@ -49,7 +49,8 @@ class Evenement
 
     /**
      * @ORM\Column(type="date")
-     * @Assert\NotBlank(message="La date de l'événement est requise.")
+     * @Assert\NotNull(message="La date de l'événement est requise.")
+     * @Assert\Type("\DateTimeInterface")
      * @Assert\GreaterThanOrEqual("today", message="La date de l'événement doit être postérieure ou égale à aujourd'hui.")
      */
     private $evenement_date;
@@ -211,4 +212,3 @@ class Evenement
         return $this;
     }
 }
-
