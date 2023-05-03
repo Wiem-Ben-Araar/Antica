@@ -24,11 +24,29 @@
                                             <ul class="list_none blog_meta">
                                                 <li><i class="ti-calendar"></i> {{ evenement.evenementDate | date("d/m/Y") }}</li>
                                                 <li><i class="ti-pin"></i> {{ evenement.lieu }} </li>
-                                                <li><i class="ti-user"></i> {{ evenement.capacite }} </li>
+                                                <li><i class="ti-user"></i>
+                                                {% for key, value in reservationsByEvenement %}
+                                                    {% if key == evenement.id %}
+                                                        {% if value == evenement.capacite %}
+                                                            <a style="color:red"> Full House </a>
+                                                        {% else %}
+                                                            {{ value }} / {{ evenement.capacite }}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                                </li>
                                             </ul>
                                             <p>{{ evenement.description }} </p>
                                             <a href="{{ path('app_evenement_show', {'id': evenement.id}) }}" class="btn btn-fill-line border-2 btn-xs rounded-0">Read More</a>
-                                            <a href="{{ path('app_reservation_new' , {'nom' : evenement.id}) }}" class="btn btn-fill-line border-2 btn-xs rounded-0">Book Now</a>
+                                            {% for key, value in reservationsByEvenement %}
+                                                {% if key == evenement.id %}
+                                                    {% if value == evenement.capacite %}
+                                                        <a href="{{ path('app_reservation_new' , {'nom' : evenement.id}) }}" class="btn btn-fill-line border-2 btn-xs rounded-0 disabled">Book Now</a>
+                                                    {% else %}
+                                                        <a href="{{ path('app_reservation_new' , {'nom' : evenement.id}) }}" class="btn btn-fill-line border-2 btn-xs rounded-0">Book Now</a>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>

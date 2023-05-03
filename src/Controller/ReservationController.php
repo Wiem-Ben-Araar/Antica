@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Evenement;
 use App\Entity\Reservation;
+use App\Entity\User;
 use App\Form\ReservationType;
 use App\Repository\EvenementRepository;
 use App\Repository\ReservationRepository;
@@ -61,7 +62,7 @@ class ReservationController extends AbstractController
             $evenement_id = $form->getData()->evenement->getId();
             $evenement_from_database = $evenementRepository->findOneById($evenement_id);
             $reservationRepository->add($reservation, true);
-            $this->sendEmail($evenement_from_database, $mailer);
+            $this->sendEmail($evenement_from_database, $mailer, $connectedUser);
             return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->renderForm('reservation/new.html.twig', [
@@ -120,11 +121,11 @@ class ReservationController extends AbstractController
      * @throws TransportExceptionInterface
      * @throws \Exception
      */
-    public function sendEmail($evenement_from_database, MailerInterface $mailer): void
+    public function sendEmail(Evenement $evenement_from_database, MailerInterface $mailer, User $connectedUser): void
     {
         $email = (new Email())
             ->from('antika.pidev.symfony@gmail.com')
-            ->to('antika.application@gmail.com')
+            ->to($connectedUser->getEmail())
             ->subject('You participated in ' . $evenement_from_database->getNom() . "!");
 
         $event = new CalendarEvent();

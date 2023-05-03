@@ -22,9 +22,19 @@ class EvenementController extends AbstractController
      */
     public function index(EvenementRepository $evenementRepository, ReservationRepository $reservationRepository): Response
     {
+        $evenements = $evenementRepository->findAll();
+        $reservations = $reservationRepository->findAll();
+        $reservationsByEvenement = array();
+        foreach ($evenements as $evenement) {
+            $reservationsByEvenement[strval($evenement->getId())] = 0;
+        }
+        foreach ($reservations as $reservation) {
+            $oldSum = $reservationsByEvenement[strval($reservation->getEvenement()->getId())];
+            $reservationsByEvenement[strval($reservation->getEvenement()->getId())] = $oldSum + 1;
+        }
         return $this->render('evenement/list.html.twig', [
-            'evenements' => $evenementRepository->findAll(),
-            'reservations' => $reservationRepository->findAll(),
+            'evenements' => $evenements,
+            'reservationsByEvenement' => $reservationsByEvenement,
         ]);
     }
 
@@ -36,14 +46,10 @@ class EvenementController extends AbstractController
         $evenement = new Evenement();
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($evenement);
-            $entityManager->flush();
+            $evenementRepository->add($evenement, true);
             return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('evenement/new.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -55,7 +61,6 @@ class EvenementController extends AbstractController
     public function show(Evenement $evenement): Response
     {
         return $this->render('evenement/show.html.twig', [
-
             'evenement' => $evenement,
         ]);
     }
