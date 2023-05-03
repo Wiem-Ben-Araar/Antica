@@ -40,14 +40,9 @@ class Enchere
     private $date_fermeture;
 
     /**
-     * @ORM\OneToMany(targetEntity=Mise::class, mappedBy="enchere_id")
+     * @ORM\OneToMany(targetEntity=Mise::class, mappedBy="enchere")
      */
-    private $enchere;
-
-    public function __construct()
-    {
-        $this->enchere = new ArrayCollection();
-    }
+    private $mises;
 
     public function getId(): ?int
     {
@@ -102,36 +97,25 @@ class Enchere
         return $this;
     }
 
-    /**
-     * @return Collection<int, Mise>
-     */
-    public function getEnchere(): Collection
+    public function addEnchere(Mise $mise): self
     {
-        return $this->enchere;
-    }
-
-    public function addEnchere(Mise $enchere): self
-    {
-        if (!$this->enchere->contains($enchere)) {
-            $this->enchere[] = $enchere;
-            $enchere->setEnchere($this);
+        if (!$this->mises->contains($mise)) {
+            $this->mises[] = $mise;
+            $mise->setEnchere($this);
         }
-
         return $this;
     }
 
-    public function removeEnchere(Mise $enchere): self
+    public function removeEnchere(Mise $mise): self
     {
-        if ($this->enchere->removeElement($enchere)) {
+        if ($this->mises->removeElement($mise)) {
             // set the owning side to null (unless already changed)
-            if ($enchere->getEnchere() === $this) {
-                $enchere->setEnchere(null);
+            if ($mise->getEnchere() === $this) {
+                $mise->setEnchere(null);
             }
         }
-
         return $this;
     }
-
 
     public function __toString()
     {

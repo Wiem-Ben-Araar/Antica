@@ -24,6 +24,12 @@ class Reservation
      */
     public $evenement;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservations")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,6 +43,18 @@ class Reservation
     public function setEvenement(?Evenement $evenement): self
     {
         $this->evenement = $evenement;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

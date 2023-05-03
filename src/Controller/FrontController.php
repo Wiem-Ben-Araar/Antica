@@ -8,6 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FrontController extends AbstractController
 {
+
+    public const connectedUserId = 1;
+
     #[Route('/front', name: 'app_front')]
     public function index(): Response
     {

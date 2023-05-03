@@ -7,10 +7,22 @@ use App\Entity\Reservation;
 use App\Form\ReservationType;
 use App\Repository\EvenementRepository;
 use App\Repository\ReservationRepository;
+use App\Repository\UserRepository;
+use DateTime;
+use Jsvrcek\ICS\CalendarExport;
+use Jsvrcek\ICS\CalendarStream;
+use Jsvrcek\ICS\Model\Calendar;
+use Jsvrcek\ICS\Model\CalendarEvent;
+use Jsvrcek\ICS\Model\Description\Location;
+use Jsvrcek\ICS\Utility\Formatter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mime\Part\DataPart;
 
 /**
  * @Route("/reservation")
@@ -29,20 +41,29 @@ class ReservationController extends AbstractController
 
     /**
      * @Route("/new ", name="app_reservation_new", methods={"GET", "POST"})
+     * @throws TransportExceptionInterface
+     * @throws \Exception
      */
-    public function new(Request $request, ReservationRepository $reservationRepository): Response
-    {
+    public function new(Request $request,
+                        ReservationRepository $reservationRepository,
+                        UserRepository $userRepository,
+                        MailerInterface $mailer,
+                        EvenementRepository $evenementRepository
+    ): Response {
         $reservation = new Reservation();
         $evenement = new Evenement();
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            $connectedUser = $userRepository->findOneById(FrontController::connectedUserId);
+            $reservation->setUser($connectedUser);
+            $reservation->setUser($connectedUser);
+            $evenement_id = $form->getData()->evenement->getId();
+            $evenement_from_database = $evenementRepository->findOneById($evenement_id);
             $reservationRepository->add($reservation, true);
-
+            $this->sendEmail($evenement_from_database, $mailer);
             return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('reservation/new.html.twig', [
             'reservation' => $reservation,
             'evenement' => $evenement,
@@ -90,5 +111,48 @@ class ReservationController extends AbstractController
         }
 
         return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @param $evenement_from_database
+     * @param MailerInterface $mailer
+     * @return void
+     * @throws TransportExceptionInterface
+     * @throws \Exception
+     */
+    public function sendEmail($evenement_from_database, MailerInterface $mailer): void
+    {
+        $email = (new Email())
+            ->from('antika.pidev.symfony@gmail.com')
+            ->to('antika.application@gmail.com')
+            ->subject('You participated in ' . $evenement_from_database->getNom() . "!");
+
+        $event = new CalendarEvent();
+        $startDateTime = new \DateTime('@'.$evenement_from_database->getEvenementDate()->getTimestamp(), $evenement_from_database->getEvenementDate()->getTimezone());
+        $endDateTime = clone $startDateTime;
+        $endDateTime->add(\DateInterval::createFromDateString('2 hours'));
+        $event
+            ->setStart($startDateTime)
+            ->setSummary($evenement_from_database->getNom())
+            ->setUid('event-uid')
+            ->setEnd($endDateTime);
+        $location = new Location();
+        $location->setUri($evenement_from_database->getLieu());
+        $event->addLocation($location);
+        $calendar = new Calendar();
+        $calendar->setProdId('Nada PI DEV Symfony')->addEvent($event);
+        $calendar->setMethod('REQUEST');
+        $calendarExport = new CalendarExport(new CalendarStream(), new Formatter());
+        $calendarExport->addCalendar($calendar);
+        $ics = $calendarExport->getStream();
+
+        $attachment = new DataPart($ics, 'inline.ics', 'text/calendar', 'quoted-printable');
+        $attachment->asInline();
+        $attachment->getHeaders()->addParameterizedHeader('Content-Type', 'text/calendar', ['charset' => 'utf-8', 'method' => 'REQUEST']);
+        $email->attachPart($attachment);
+        $email->getHeaders()->remove("Content-Type");
+        $email->getHeaders()->addTextHeader('MIME-Version', '1.0')->addTextHeader('Content-Type', 'text/calendar');
+
+        $mailer->send($email);
     }
 }

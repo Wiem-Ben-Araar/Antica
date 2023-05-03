@@ -56,18 +56,12 @@ class Evenement
     private $evenement_date;
 
     /**
-     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="evenement_id")
-     */
-    private $evenement;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="nom")
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="evenement")
      */
     private $reservations;
 
     public function __construct()
     {
-        $this->evenement = new ArrayCollection();
         $this->reservations = new ArrayCollection();
     }
 
@@ -136,65 +130,11 @@ class Evenement
         return $this;
     }
 
-    /**
-     * @return Collection<int, Reservation>
-     */
-    public function getEvenement(): Collection
-    {
-        return $this->evenement;
-    }
-
-    public function addEvenement(Reservation $evenement): self
-    {
-        if (!$this->evenement->contains($evenement)) {
-            $this->evenement[] = $evenement;
-            $evenement->setEvenement($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvenement(Reservation $evenement): self
-    {
-        if ($this->evenement->removeElement($evenement)) {
-            // set the owning side to null (unless already changed)
-            if ($evenement->getEvenement() === $this) {
-                $evenement->setEvenement(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function __toString()
-    {
-        return (string) $this->id;
-    }
-    public function getNameById($id)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $evenement = $entityManager->getRepository(Evenement::class)->findOneBy(['id' => $id]);
-
-        if (!$evenement) {
-            throw $this->createNotFoundException('L\'événement n\'existe pas.');
-        }
-
-        return $evenement->getNom();
-    }
-
-    /**
-     * @return Collection<int, Reservation>
-     */
-    public function getReservations(): Collection
-    {
-        return $this->reservations;
-    }
-
     public function addReservation(Reservation $reservation): self
     {
         if (!$this->reservations->contains($reservation)) {
             $this->reservations[] = $reservation;
-            $reservation->setNom($this);
+            $reservation->setEvenement($this);
         }
 
         return $this;
@@ -204,11 +144,23 @@ class Evenement
     {
         if ($this->reservations->removeElement($reservation)) {
             // set the owning side to null (unless already changed)
-            if ($reservation->getNom() === $this) {
-                $reservation->setNom(null);
+            if ($reservation->getEvenement() === $this) {
+                $reservation->setEvenement(null);
             }
         }
-
         return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->id;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
     }
 }
