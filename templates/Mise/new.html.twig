@@ -17,8 +17,7 @@
 								<th class="product-name">Product</th>
 								<th class="product-price">Starting Price</th>
 								<th class="product-quantity">Bet</th>
-								<th class="product-subtotal">Final Price</th>
-								<th class="product-remove">Remove</th>
+								<th class="product-subtotal">Total</th>
 								<th class="product-price"></th>
 							</tr>
 							</thead>
@@ -29,15 +28,9 @@
 									<td></td>
 								</div>
 								<div class="form-group row">
-									<td>Pot O' Gold</td>
+									<td> Pot O' Gold </td>
 								</div>
-								<td>
-									<div class="form-group">
-
-										{{ form_widget(form.enchere, {'attr': {'class': 'form-control', 'placeholder': 'Event Name'}}) }}
-										{{ form_errors(form.enchere) }}
-									</div>
-								</td>
+								<td class="product-price" data-title="Price"> {{ enchere.prix_initiale }} </td>
 								<td class="product-quantity" data-title="Quantity">
 									<div class="quantity">
 										<input type="button" value="-" class="minus" data-price="{{ enchere.prix_initiale }}" {% if enchere.prix_initiale == enchere.prix_finale %} disabled {% endif %}>
@@ -46,7 +39,6 @@
 									</div>
 								</td>
 								<td class="product-subtotal" data-title="Total">{{ enchere.prix_initiale }}</td>
-								<td class="product-remove" data-title="Remove"><a href="#"><i class="ti-close"></i></a></td>
 								<td>
 									<div class="form-group">
 										<button type="submit" class="btn btn-fill-out btn-block" name="register"><a href="{{ path('app_mise_index') }}">Place Bet</a></button>

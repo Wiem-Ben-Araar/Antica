@@ -15,7 +15,6 @@ class MiseType extends AbstractType
         $builder
             ->add('enchere', EntityType::class, [
                 'class' => 'App\Entity\Enchere',
-                'choice_label' => 'prix_initiale'
             ]);
     }
 
