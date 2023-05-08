@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\EvenementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -17,12 +18,14 @@ class Evenement
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"evenements"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Le nom de l'événement est requis.")
+     * @Groups({"evenements"})
      * @Assert\Length(max=255, maxMessage="Le nom de l'événement ne peut pas dépasser {{ limit }} caractères.")
      */
     public $nom;
@@ -30,12 +33,14 @@ class Evenement
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Le lieu de l'événement est requis.")
+     * @Groups({"evenements"})
      * @Assert\Length(max=255, maxMessage="Le lieu de l'événement ne peut pas dépasser {{ limit }} caractères.")
      */
     private $lieu;
 
     /**
      * @ORM\Column(type="string", length=1000)
+     * @Groups({"evenements"})
      * @Assert\NotBlank(message="La description de l'événement est requise.")
      */
     private $description;
@@ -43,6 +48,7 @@ class Evenement
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank(message="La capacité de l'événement est requise.")
+     * @Groups({"evenements"})
      * @Assert\Positive(message="La capacité doit être supérieure à zéro.")
      */
     private $capacite;
@@ -51,12 +57,14 @@ class Evenement
      * @ORM\Column(type="date")
      * @Assert\NotNull(message="La date de l'événement est requise.")
      * @Assert\Type("\DateTimeInterface")
+     * @Groups({"evenements"})
      * @Assert\GreaterThanOrEqual("today", message="La date de l'événement doit être postérieure ou égale à aujourd'hui.")
      */
     private $evenement_date;
 
     /**
      * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="evenement")
+     * @Groups({"evenements"})
      */
     private $reservations;
 
