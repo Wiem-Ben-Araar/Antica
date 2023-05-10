@@ -38,7 +38,7 @@ class PanierType extends AbstractType
                 )
 
 
-       ;
+            ;
         }
     }
 

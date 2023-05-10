@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Expertise{% endblock %}
+{% block breadcrumb %}Expertise{% endblock %}
+{% block breadcrumb2 %}Expertise{% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        {% for expertise in expertises %}
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="expertise_post expertise_style2 box_shadow1">
+                    <div class="expertise_img">
+                        <a href="#">
+                            <img src="../assets2/images/pein.jpg" alt="pein.jpg" style="width:200px ;">
+                        </a>
+                    </div>
+                    <div class="expertise_content bg-white">
+                        <div class="expertise_text">
+                            <h6 class="expertise_title">Etat :<a href="{{ path('app_expertise_show', {'id': expertise.id}) }}">{{ expertise.getConditionProduit() }}</a></h6>
+
+                            <p>Description: {{ expertise.getPrixEstime() }} TND</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <tr>
+                <td colspan="7">no posts found</td>
+            </tr>
+        {% endfor %}
+
+        {% endblock %}
+
+
+
+
+
+

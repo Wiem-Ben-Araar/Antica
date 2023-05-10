@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Send SMS</h1>
+
+    <table class="table">
+        <tbody>
+
+        <tr>
+            <th>Id_produit</th>
+            <td>{{ expertise.idProduit }}</td>
+        </tr>
+        <tr>
+            <th>Id_artist</th>
+            <td>{{ expertise.idArtist }}</td>
+        </tr>
+        <tr>
+            <th>Prix_estime</th>
+            <td>{{ expertise.prixEstime }}</td>
+        </tr>
+        <tr>
+            <th>Condition_produit</th>
+            <td>{{ expertise.conditionProduit }}</td>
+        </tr>
+        </tbody>
+    </table>
+    {% if message is defined %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endif %}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+{% endblock %}

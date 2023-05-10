@@ -1,0 +1,42 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}Expertise index{% endblock %}
+
+{% block content %}
+    <h1>Expertise</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id_produit</th>
+
+                <th>Prix_estime</th>
+                <th>Condition_produit</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for expertise in expertises %}
+            <tr>
+
+                <td>{{ expertise.idProduit }}</td>
+
+                <td>{{ expertise.prixEstime }}</td>
+                <td>{{ expertise.conditionProduit }}</td>
+                <td>
+                    <a href="{{ path('admin_expertise_show', {'id': expertise.id}) }}">show ||</a>
+                    <a href="{{ path('admin_expertise_edit', {'id': expertise.id}) }}">edit ||</a>
+                    <a href="{{ path('admin_expertise_send', {'id': expertise.id}) }}">Send sms</a>
+                </td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_expertise_new') }}">Create new</a>
+{% endblock %}

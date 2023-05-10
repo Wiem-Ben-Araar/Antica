@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ajouter un commentaire{% endblock %}
+
+{% block body %}
+    <div class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+        <div>
+            <h1 class="text-center">Ajouter un commentaire</h1>
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle"></i> {{ message }}
+                </div>
+            {% endfor %}
+            {# Afficher le formulaire de commentaire #}
+            {{ form_start(commentaire) }}
+            {{ form_widget(commentaire ) }}
+            <button type="submit" class="btn btn-primary">Soumettre</button>
+            {{ form_end(commentaire) }}
+            {{ include('commentaire/_form.html.twig') }}
+        </div>
+    </div>
+
+{% endblock %}

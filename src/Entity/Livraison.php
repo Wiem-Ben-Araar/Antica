@@ -7,29 +7,47 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: LivraisonRepository::class)]
 class Livraison
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+               /**
+     * @Groups({"post:read"})
+     */
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+               /**
+     * @Groups({"post:read"})
+     */
     private ?string $adresse = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+               /**
+     * @Groups({"post:read"})
+     */
     private ?\DateTimeInterface $date_livraison = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+               /**
+     * @Groups({"post:read"})
+     */
     private ?string $statut = null;
 
     #[ORM\Column]
+               /**
+     * @Groups({"post:read"})
+     */
     private ?float $total = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'livraisons', cascade: ["persist"])]
     #[ORM\JoinColumn(nullable: false)]
+               /**
+     * @Groups({"post:read"})
+     */
     private ?User $user = null;
 
     /**

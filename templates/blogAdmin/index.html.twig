@@ -1,0 +1,43 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}Blog index{% endblock %}
+
+{% block content %}
+    <h1>Blog </h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Artiste</th>
+                <th>Contenu</th>
+                <th>Etiquette</th>
+                <th>produit</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for blog in blogs %}
+            <tr>
+                <td>{{ blog.id }}</td>
+                <td>{{ blog.titre }}</td>
+                <td>{{ blog.artiste }}</td>
+                <td>{{ blog.contenu }}</td>
+                <td>{{ blog.etiquette }}</td>
+                <td>{{ blog.produit }}</td>
+                <td>
+
+                    <a href="{{ path('admin_blog_edit', {'id': blog.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_blog_new') }}">Create new</a>
+{% endblock %}

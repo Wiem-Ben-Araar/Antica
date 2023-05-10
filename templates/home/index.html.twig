@@ -2,36 +2,44 @@
 
 {% block title %}Home - Antika{% endblock %}
 
-{% block content %}<!-- END MAIN CONTENT -->
+{% block content %}
     <div class="main_content">
-
-        <!-- START SECTION BANNER -->
-
-        <!-- END SECTION BANNER -->
-
         <!-- START SECTION SHOP -->
+        <section class="shop_section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section_title">
+                            <h2>Notre boutique</h2>
+                            <p>Découvrez notre sélection de produits</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for produit in produits %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="product_item">
+                                <div class="product_image">
+                                    <img src="../uploads/images/{{ produit.image }}" alt="Product image" width="350" height="200">
+                                </div>
+                                <div class="product_content">
+                                    <h3 class="product_title">{{ produit.nom }}</h3>
+                                    <span class="product_price">{{ produit.prix }} TND</span>
+                                    <form action="{{ path('ajout_produit_panier') }}" method="POST">
+                                        <input type="hidden" name="produit_id" value="{{ produit.id }}">
+                                        <button type="submit" class="btn btn-primary">Ajouter au panier</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
 
+
+
+
+                </div>
+            </div>
+        </section>
         <!-- END SECTION SHOP -->
-
-        <!-- START SECTION SINGLE BANNER -->
-
-        <!-- END SECTION SINGLE BANNER -->
-
-        <!-- START SECTION SHOP -->
-
-        <!-- END SECTION SHOP -->
-
-        <!-- START SECTION TESTIMONIAL -->
-
-        <!-- END SECTION TESTIMONIAL -->
-
-        <!-- START SECTION SHOP INFO -->
-
-        <!-- END SECTION SHOP INFO -->
-
-        <!-- START SECTION SUBSCRIBE NEWSLETTER -->
-
-        <!-- START SECTION SUBSCRIBE NEWSLETTER -->
-
     </div>
 {% endblock %}

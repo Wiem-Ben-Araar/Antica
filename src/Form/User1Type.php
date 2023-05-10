@@ -79,6 +79,7 @@ class User1Type extends AbstractType
                     ]),
                 ],
             ])
+
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [

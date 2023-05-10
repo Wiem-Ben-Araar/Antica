@@ -17,7 +17,7 @@ class AdminAvisController extends AbstractController
     #[Route('/', name: 'app_admin_avis_index', methods: ['GET'])]
     public function index(AvisRepository $avisRepository): Response
     {
-        return $this->render('admin_avis/indexadmin.html.twig', [
+        return $this->render('admin_avis/index.html.twig', [
             'avis' => $avisRepository->findAll(),
         ]);
     }

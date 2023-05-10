@@ -1,0 +1,11 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}New Blog{% endblock %}
+
+{% block content %}
+    <h1>Create new Blog</h1>
+
+    {{ include('blogadmin/_form.html.twig') }}
+
+    <a href="{{ path('admin_blog_index') }}">back to list</a>
+{% endblock %}

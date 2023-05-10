@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Reclamation{% endblock %}
+
+{% block body %}
+    <div class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+        <div>
+            <h1 class="text-center">Ajouter Reclamation</h1>
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle"></i> {{ message }}
+                </div>
+            {% endfor %}
+            {{ include('reclamation/_form.html.twig') }}
+        </div>
+    </div>
+
+{% endblock %}

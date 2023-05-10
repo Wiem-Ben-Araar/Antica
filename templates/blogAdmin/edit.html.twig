@@ -1,0 +1,13 @@
+{% extends 'baseback.html.twig' %}
+
+{% block title %}Edit Blog{% endblock %}
+
+{% block content %}
+    <h1>Edit Blog</h1>
+
+    {{ include('blogadmin/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin_blog_index') }}">back to list</a>
+
+    {{ include('blogadmin/_delete_form.html.twig') }}
+{% endblock %}

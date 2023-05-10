@@ -13,7 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 #[Route('/panier')]
 class PanierController extends AbstractController
@@ -113,4 +114,50 @@ class PanierController extends AbstractController
         return $factureController->generateLivraisonPdf($panier);
     }
 
+        // ...
+        #[Route('/api/panierJson', name: 'panierJson')]
+        public function panierJson(Request $request,NormalizerInterface $normalizer): Response
+        {
+    
+            $em = $this->getDoctrine()->getManager()->getRepository(Panier::class); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+            $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($request->get("idUser")); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+
+            $data = $em->findBy(["user"=>$user]); 
+            $jsonContent =$normalizer->normalize($data, 'json' ,['groups'=>'post:read']);
+            return new Response(json_encode($jsonContent));
+        }
+        #[Route('/api/addToCart', name: 'addToCart')]
+        public function addToCart(Request $request,NormalizerInterface $normalizer): Response
+        {
+    
+            $produit = $this->getDoctrine()->getManager()->getRepository(Produits::class)->find($request->get("idProduit")); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+            $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($request->get("idUser")); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+            $panier = new Panier();
+            $panier->setUser($user);
+            $panier->setProduit($produit);
+            $panier->setTotal($produit->getPrix());
+           
+            $entityManager = $this->getDoctrine()->getManager();
+            
+            $entityManager->persist($panier);
+    
+            $entityManager->flush();
+            $jsonContent =$normalizer->normalize($panier, 'json' ,['groups'=>'post:read']);
+            return new Response(json_encode($jsonContent));
+        }
+
+        #[Route('/api/deleteProdFromCart/{id}', name: 'deleteProdFromCart')]
+        public function deleteProdFromCart(Request $request,NormalizerInterface $normalizer,$id): Response
+        {
+    
+            $panier = $this->getDoctrine()->getManager()->getRepository(Panier::class)->find($id); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+           // $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($request->get("idUser")); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+//dd($prod);
+            $em = $this->getDoctrine()->getManager();
+            //$panier=$em->getRepository(Panier::class)->findOneBy(["user"=>$user,"produit"=>$prod]);
+                $em->remove($panier);
+                $em->flush();
+                $jsonContent =$normalizer->normalize($panier, 'json' ,['groups'=>'post:read']);
+                return new Response("information deleted successfully".json_encode($jsonContent));
+        }
 }

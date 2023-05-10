@@ -6,25 +6,28 @@
 <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
     <div>
     <h1>Produits</h1>
+        <input id="search_input" type="text" name="search_input" placeholder="Recherche ..." style="margin: 1em 0">
 
-    <table class="table">
+    <table class="table" id="myTable">
         <thead>
             <tr>
-                <th>Id</th>
+
                 <th>Nom</th>
                 <th>Prix</th>
+                <th>Genre</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for produit in produits %}
             <tr>
-                <td>{{ produit.id }}</td>
+
                 <td>{{ produit.nom }}</td>
                 <td>{{ produit.prix }}</td>
+                <td>{{ produit.genre }}</td>
                 <td>
                     <a href="{{ path('app_produits_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('app_produits_edit', {'id': produit.id}) }}">edit</a>
+
                 </td>
             </tr>
         {% else %}
@@ -35,7 +38,18 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_produits_new') }}">Create new</a>
+
     </div>
 </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#search_input").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 {% endblock %}

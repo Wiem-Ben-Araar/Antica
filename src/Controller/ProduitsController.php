@@ -10,6 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Vich\UploaderBundle\Handler\UploadHandler;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 #[Route('/produits')]
 class ProduitsController extends AbstractController
@@ -23,13 +26,14 @@ class ProduitsController extends AbstractController
     }
 
     #[Route('/new', name: 'app_produits_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ProduitsRepository $produitsRepository): Response
+    public function new(Request $request, ProduitsRepository $produitsRepository, UploadHandler $uploadHandler): Response
     {
         $produit = new Produits();
         $form = $this->createForm(ProduitsType::class, $produit);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $uploadHandler->upload($produit, 'imageFile');
             $produitsRepository->save($produit, true);
 
             return $this->redirectToRoute('app_produits_index', [], Response::HTTP_SEE_OTHER);
@@ -95,4 +99,76 @@ class ProduitsController extends AbstractController
         // Retourner le prix sous forme de JSON
         return $this->json(['prix' => $prix]);
     }
+    #[Route('/api/produitsJson', name: 'produitsJson')]
+    public function produitsJson(Request $request,NormalizerInterface $normalizer): Response
+    {
+
+        $em = $this->getDoctrine()->getManager()->getRepository(Produits::class); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+
+        $data = $em->findAll(); 
+        $jsonContent =$normalizer->normalize($data, 'json' ,['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    #[Route('/api/produitsSearchJson', name: 'produitsSearchJson')]
+    public function produitsSearchJson(Request $request,NormalizerInterface $normalizer): Response
+    {
+
+        $em = $this->getDoctrine()->getManager()->getRepository(Produits::class); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+        $search = $request->get("search");
+        $data = $em->findBy(["nom"=>$search]); 
+        $jsonContent =$normalizer->normalize($data, 'json' ,['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+    #[Route('/api/deleteProdJson/{id}', name: 'deleteProdJson')]
+    public function deleteProdJson(Request $request,NormalizerInterface $normalizer,$id): Response
+    {
+
+        $prod = $this->getDoctrine()->getManager()->getRepository(Produits::class)->find($id); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+        $em = $this->getDoctrine()->getManager();
+
+            $em->remove($prod);
+            $em->flush();
+            $jsonContent =$normalizer->normalize($prod, 'json' ,['groups'=>'post:read']);
+            return new Response("information deleted successfully".json_encode($jsonContent));
+    }
+
+    #[Route('/api/addProduitJson', name: 'addProduitJson')]
+    public function addProduitJson(NormalizerInterface $Normalizer,Request $request,EntityManagerInterface $entityManager): Response
+    {
+
+        $produit = new Produits();
+
+        $em = $this->getDoctrine()->getManager();
+        $produit->setNom($request->get('nom'));
+        $produit->setPrix($request->get('prix'));
+        $produit->setGenre($request->get('genre'));
+        
+        $produit->setImage("645665b81a2fd955008072.jpg");
+     
+        $em->persist($produit);
+        $em->flush();
+            $jsonContent = $Normalizer->normalize($produit, 'json',['groups'=>'post:read']);
+            return new Response(json_encode($jsonContent));
+
+    }
+
+    #[Route('/api/editProduitJson/{id}', name: 'editProduitJson')]
+    public function editProduitJson($id,NormalizerInterface $Normalizer,Request $request,EntityManagerInterface $entityManager): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $produit =$em->getRepository(Produits::class)->find($id);
+        $produit->setNom($request->get('nom'));
+        $produit->setPrix($request->get('prix'));
+        $produit->setGenre($request->get('genre'));
+        
+        $produit->setImage("645665b81a2fd955008072.jpg");
+     
+        $em->persist($produit);
+        $em->flush();
+            $jsonContent = $Normalizer->normalize($produit, 'json',['groups'=>'post:read']);
+            return new Response(json_encode($jsonContent));
+
+    }
+
 }

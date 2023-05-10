@@ -13,7 +13,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
-
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\Transport;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
+use Another\Namespace\NamedAddress;
 #[Route('/livraison')]
 class LivraisonController extends AbstractController
 {
@@ -141,5 +148,111 @@ class LivraisonController extends AbstractController
     }
 
     // ...
+    #[Route('/api/livraisonsJson', name: 'livraisonsJson')]
+    public function livraisonsJson(Request $request,NormalizerInterface $normalizer): Response
+    {
 
+        $em = $this->getDoctrine()->getManager()->getRepository(Livraison::class); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+
+        $data = $em->findAll(); 
+        $jsonContent =$normalizer->normalize($data, 'json' ,['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+    #[Route('/api/validerLivraisonJson/{id}', name: 'validerLivraisonJson')]
+    public function validerLivraisonJson($id,Request $request,NormalizerInterface $normalizer): Response
+    {
+      
+        $em = $this->getDoctrine()->getManager()->getRepository(Livraison::class); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+
+        $livraison = $em->find($id);
+        $panierRepository = $this->getDoctrine()->getRepository(Panier::class);
+        $paniers = $panierRepository->findAll();
+       
+
+        $entityManager = $this->getDoctrine()->getManager();
+        // Mettre à jour le statut de la livraison à "livré"
+        $livraison->setStatut("livré");
+// Remove the related Panier entities
+        foreach ($paniers as $panier) {
+            $entityManager->remove($panier);
+        }
+        $transport = Transport::fromDsn("smtp://pidev.antica@gmail.com:aulfvnkxvwzabctc@smtp.gmail.com:587?encryption=tls");
+            $mailer = new Mailer($transport);
+           $emailTo = "yosra.shil@esprit.tn" ;
+            $email = (new Email())
+       
+            ->from('pidev.antica@gmail.com')
+            ->to($emailTo)
+            ->subject('Confirmation!')
+            ->text('Sending emails is fun again!')
+            ->html('<p>Bonjour , Votre commande est confirmé!!!</p>');   
+        
+
+$headers = $email->getHeaders();
+
+$mailer->send($email);
+        $entityManager->persist($livraison);
+        $entityManager->flush();
+        $jsonContent =$normalizer->normalize($livraison, 'json' ,['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+    #[Route('/api/annulerLivraisonJson/{id}', name: 'annulerLivraisonJson')]
+    public function annulerLivraisonJson($id,Request $request,NormalizerInterface $normalizer): Response
+    {
+
+        $em = $this->getDoctrine()->getManager()->getRepository(Livraison::class); // ENTITY MANAGER ELY FIH FONCTIONS PREDIFINES
+
+        $livraison = $em->find($id);
+        $livraison->setStatut("Annuler");
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($livraison);
+        $entityManager->flush();
+        $jsonContent =$normalizer->normalize($livraison, 'json' ,['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    #[Route('/api/addLivraisonJson', name: 'addLivraisonJson')]
+    public function addLivraisonJson(Request $request,NormalizerInterface $normalizer): Response
+    {
+
+        $panierRepository = $this->getDoctrine()->getRepository(Panier::class);
+        $paniers = $panierRepository->findAll();
+        $total = 0;
+        foreach ($paniers as $panier) {
+            $total += $panier->getProduitPrix();
+        }
+
+        $livraison = new Livraison();
+        $user = $this->getDoctrine()->getRepository(User::class)->find($request->get("idUser"));
+        $livraisonDate = new \DateTime();
+        $livraisonDate->modify('+2 days');
+        $livraison->setDateLivraison($livraisonDate);
+        $livraison->setUser($user);
+        $livraison->setStatut("En cours");
+        $livraison->setTotal($total);
+       $livraison->setAdresse($request->get("adresse"));
+       $entityManager = $this->getDoctrine()->getManager();
+$entityManager->persist($livraison);
+$entityManager->flush();
+        $jsonContent =$normalizer->normalize($livraison, 'json' ,['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    #[Route('/api/editLivraisonJson/{id}', name: 'editLivraisonJson')]
+    public function editLivraisonJson($id,Request $request,NormalizerInterface $normalizer): Response
+    {
+
+       
+
+        $livraison =$this->getDoctrine()->getManager()->getRepository(Livraison::class)->find($id);
+       
+        $livraison->setStatut("En cours");
+        
+       $livraison->setAdresse($request->get("adresse"));
+       $entityManager = $this->getDoctrine()->getManager();
+$entityManager->persist($livraison);
+$entityManager->flush();
+        $jsonContent =$normalizer->normalize($livraison, 'json' ,['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
 }

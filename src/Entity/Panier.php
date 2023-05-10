@@ -6,7 +6,7 @@ use App\Repository\PanierRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: PanierRepository::class)]
 class Panier
 {
@@ -14,22 +14,37 @@ class Panier
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    /**
+     * @Groups({"post:read"})
+     */
     private ?int $id = null;
 
     #[ORM\Column]
+        /**
+     * @Groups({"post:read"})
+     */
     private ?int $quantite = 1;
 
     #[ORM\Column]
+        /**
+     * @Groups({"post:read"})
+     */
     private ?float $total = null;
 
 
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'],targetEntity: Produits::class, inversedBy: "panier")]
     #[ORM\JoinColumn(nullable: false)]
+        /**
+     * @Groups({"post:read"})
+     */
     private ?Produits $produit = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'paniers', cascade: ["persist"])]
     #[ORM\JoinColumn(nullable: false)]
+        /**
+     * @Groups({"post:read"})
+     */
     private ?User $user = null;
 
 

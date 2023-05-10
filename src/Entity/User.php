@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -17,36 +18,61 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+               /**
+     * @Groups({"post:read"})
+     */
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+               /**
+     * @Groups({"post:read"})
+     */
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'json')]
+   
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
+               /**
+     * @Groups({"post:read"})
+     */
     private ?string $password = null;
 
     #[ORM\OneToMany(mappedBy: 'User', targetEntity: Avis::class, orphanRemoval: true)]
     private Collection $avis;
 
     #[ORM\Column(type: 'boolean')]
+               /**
+     * @Groups({"post:read"})
+     */
     private $isVerified = false;
 
     #[ORM\Column(length: 255, nullable: true)]
+               /**
+     * @Groups({"post:read"})
+     */
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+               /**
+     * @Groups({"post:read"})
+     */
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+               /**
+     * @Groups({"post:read"})
+     */
     private ?string $telephone = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+               /**
+     * @Groups({"post:read"})
+     */
     private ?string $adresse = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Panier::class)]
@@ -56,7 +82,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $livraisons;
 
     public function __construct()
-    {   $this->paniers = new ArrayCollection();
+    {$this->paniers = new ArrayCollection();
         $this->livraisons = new ArrayCollection();
         $this->avis = new ArrayCollection();
     }
@@ -68,10 +94,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getId(): ?int
     {
         return $this->id;
-    }
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     public function getEmail(): ?string
@@ -309,4 +331,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }

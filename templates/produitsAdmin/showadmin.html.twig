@@ -1,4 +1,4 @@
-{% extends 'baseadmin.html.twig' %}
+{% extends 'baseback.html.twig' %}
 
 {% block title %}Produits{% endblock %}
 
@@ -20,6 +20,12 @@
             <tr>
                 <th>Prix</th>
                 <td>{{ produit.prix }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>
+                    <img src="{{ asset('/uploads/images/'~produit.image) }}">
+                </td>
             </tr>
         </tbody>
     </table>
